@@ -4,38 +4,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Placement / Internship Tracker</title>
+    <title>Smart Placement Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <header class="top-header">
-        <h1>📘 Smart Placement / Internship Tracker</h1>
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-gradient"></div>
+
+    <!-- Hero Header -->
+    <header class="hero-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <div class="logo-icon">📊</div>
+                <div>
+                    <h1 class="main-title">Placement Tracker</h1>
+                    <p class="subtitle">Track your journey to success</p>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div class="stat-pill">
+                    <span class="stat-label">Success Rate</span>
+                    <span class="stat-value" id="successRate">0%</span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <!-- Main Container -->
     <div class="container">
 
+        <!-- Summary Cards -->
+        <section class="summary-section">
+            <div class="summary-card" data-category="total">
+                <div class="card-icon">📝</div>
+                <div class="card-content">
+                    <h3>Total Applications</h3>
+                    <p class="big-number" id="totalApps">0</p>
+                </div>
+            </div>
+
+            <div class="summary-card" data-category="interviews">
+                <div class="card-icon">💼</div>
+                <div class="card-content">
+                    <h3>Interviews</h3>
+                    <p class="big-number" id="interviews">0</p>
+                </div>
+            </div>
+
+            <div class="summary-card" data-category="offers">
+                <div class="card-icon">🎉</div>
+                <div class="card-content">
+                    <h3>Offers</h3>
+                    <p class="big-number" id="offers">0</p>
+                </div>
+            </div>
+
+            <div class="summary-card" data-category="rejected">
+                <div class="card-icon">📉</div>
+                <div class="card-content">
+                    <h3>Rejections</h3>
+                    <p class="big-number" id="rejected">0</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Add Application Form -->
-        <section class="card glass">
-            <h2>Add New Application</h2>
+        <section class="form-section glass-card">
+            <div class="section-header">
+                <h2>➕ Add New Application</h2>
+                <p class="section-desc">Log your latest application details</p>
+            </div>
 
             <form id="applicationForm">
-                <div class="grid-2">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label>Company Name</label>
-                        <input type="text" id="company" required>
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" placeholder="e.g., Google, Microsoft" required>
                     </div>
-                    <div class="form-group">
-                        <label>Role / Position</label>
-                        <input type="text" id="role" required>
-                    </div>
-                </div>
 
-                <div class="grid-2">
                     <div class="form-group">
-                        <label>Application Stage</label>
+                        <label for="role">Role / Position</label>
+                        <input type="text" id="role" placeholder="e.g., Software Engineer" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stage">Application Stage</label>
                         <select id="stage">
                             <option>Applied</option>
                             <option>Online Assessment (OA)</option>
@@ -46,63 +104,83 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Result</label>
+                        <label for="result">Current Result</label>
                         <select id="result">
                             <option>Pending</option>
                             <option>Cleared</option>
                             <option>Rejected</option>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="date">Applied Date</label>
+                        <input type="date" id="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Notes (Optional)</label>
+                        <input type="text" id="notes" placeholder="Any additional info...">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Applied Date</label>
-                    <input type="date" id="date" required>
-                </div>
-
-                <button class="btn-primary">+ Add Application</button>
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Add Application</span>
+                    <span class="btn-icon">→</span>
+                </button>
             </form>
         </section>
 
-        <!-- Table -->
-        <section class="card glass">
-            <h2>Applications List</h2>
+        <!-- Filter Section -->
+        <section class="filter-section">
+            <div class="filter-group">
+                <label>Filter by Stage:</label>
+                <div class="filter-chips">
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="Applied">Applied</button>
+                    <button class="filter-chip" data-filter="Online Assessment (OA)">OA</button>
+                    <button class="filter-chip" data-filter="Interview">Interview</button>
+                    <button class="filter-chip" data-filter="Offer">Offer</button>
+                    <button class="filter-chip" data-filter="Rejected">Rejected</button>
+                </div>
+            </div>
 
-            <table id="applicationsTable">
-                <thead>
-                    <tr>
-                        <th>Company</th>
-                        <th>Role</th>
-                        <th>Stage</th>
-                        <th>Result</th>
-                        <th>Applied</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            <div class="search-group">
+                <input type="text" id="searchBox" placeholder="🔍 Search by company or role...">
+            </div>
         </section>
 
-        <!-- Summary -->
-        <section class="summary-cards">
-            <div class="summary-box card glass">
-                <h3>Total Applications</h3>
-                <p id="totalApps">0</p>
+        <!-- Applications Table -->
+        <section class="table-section glass-card">
+            <div class="section-header">
+                <h2>📋 Applications List</h2>
+                <button class="btn-secondary" id="exportBtn">Export Data</button>
             </div>
 
-            <div class="summary-box card glass">
-                <h3>Interviews</h3>
-                <p id="interviews">0</p>
-            </div>
-
-            <div class="summary-box card glass">
-                <h3>Offers</h3>
-                <p id="offers">0</p>
-            </div>
-
-            <div class="summary-box card glass">
-                <h3>Rejections</h3>
-                <p id="rejected">0</p>
+            <div class="table-wrapper">
+                <table id="applicationsTable">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Stage</th>
+                            <th>Result</th>
+                            <th>Applied Date</th>
+                            <th>Days Ago</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr class="empty-state">
+                            <td colspan="8">
+                                <div class="empty-message">
+                                    <div class="empty-icon">📭</div>
+                                    <p>No applications yet. Add your first one above!</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
